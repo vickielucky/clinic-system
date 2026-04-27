@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String
+  fullName  String
+  role      String     @default("Pharmacist")
+  email     String?
+  phone     String?
+  licenseNo String?
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  auditLogs AuditLog[]
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  username  String
+  action    String
+  entity    String
+  entityId  Int?
+  detail    String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([createdAt])
+  @@index([username])
+}
+
+model Drug {
+  id           Int         @id @default(autoincrement())
+  name         String
+  formulation  String
+  strength     String
+  reorderLevel Int         @default(50)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  dispenses    Dispense[]
+  inventories  Inventory[]
+}
+
+model Inventory {
+  id          Int        @id @default(autoincrement())
+  batchNumber String
+  quantity    Int
+  unit        String
+  price       Float
+  expiryDate  DateTime
+  supplier    String?
+  receivedAt  DateTime   @default(now())
+  drugId      Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  dispenses   Dispense[]
+  drug        Drug       @relation(fields: [drugId], references: [id])
+
+  @@index([drugId, expiryDate])
+}
+
+model Dispense {
+  id          Int       @id @default(autoincrement())
+  quantity    Int
+  patientName String
+  dispensedBy String    @default("Admin")
+  notes       String?
+  drugId      Int
+  inventoryId Int
+  createdAt   DateTime  @default(now())
+  drug        Drug      @relation(fields: [drugId], references: [id])
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+}
