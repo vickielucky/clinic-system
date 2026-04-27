@@ -104,13 +104,27 @@ export default function InventoryPage() {
     setSaving(false);
   };
 
-  const handleDelete = async () => {
-    if (!deleteTarget) return;
-    setDeleting(true);
-    const res = await fetch("/api/inventory", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: deleteTarget.id }) });
-    if (res.ok) { setDeleteTarget(null); fetchAll(); }
-    setDeleting(false);
-  };
+ const handleDelete = async () => {
+  if (!deleteTarget) return;
+  setDeleting(true);
+  try {
+    const res  = await fetch("/api/inventory", {
+      method:  "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ id: deleteTarget.id }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setDeleteTarget(null);
+      fetchAll();
+    } else {
+      alert(data.error || "Failed to delete batch.");
+    }
+  } catch {
+    alert("Something went wrong. Please try again.");
+  }
+  setDeleting(false);
+};
 
   const filtered = batches.filter((b) => {
     const matchSearch = b.drug.name.toLowerCase().includes(search.toLowerCase()) ||
