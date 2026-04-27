@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import { Eye, EyeOff, Lock, User } from "lucide-react";
 
 export default function LoginPage() {
-  const router = useRouter();
+ 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPw,   setShowPw]   = useState(false);
@@ -26,8 +26,7 @@ export default function LoginPage() {
       if (!res.ok) {
         setError(data.error || "Invalid credentials.");
       } else {
-        router.push("/");
-        router.refresh();
+        window.location.href = "/";
       }
     } catch {
       setError("Something went wrong. Please try again.");
