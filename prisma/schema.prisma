@@ -13,7 +13,7 @@ model User {
   username  String     @unique
   password  String
   fullName  String
-  role      String     @default("Pharmacist")
+  role      String     @default("Clinician")
   email     String?
   phone     String?
   licenseNo String?

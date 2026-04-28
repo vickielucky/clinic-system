@@ -27,7 +27,7 @@ export default function SettingsPage() {
   const [saved,     setSaved]     = useState("");
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
-  const [profile, setProfile] = useState({ firstName: "", lastName: "", email: "", phone: "", role: "Pharmacist", licenseNo: "", bio: "" });
+  const [profile, setProfile] = useState({ firstName: "", lastName: "", email: "", phone: "", role: "Clinician", licenseNo: "", bio: "" });
   const [pharmacy, setPharmacy] = useState({ name: "Krrish P~Kay Pharmacy", address: "Nairobi, Kenya", phone: "+254 700 000 001", email: "info@krrishpkay.com", licenseNo: "PPB/PH/2024/456", openTime: "08:00", closeTime: "20:00" });
   const [security, setSecurity] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
   const [secError,  setSecError]  = useState("");
@@ -38,7 +38,7 @@ export default function SettingsPage() {
     fetch("/api/auth/me").then((r) => r.ok ? r.json() : null).then((u) => {
       if (u) {
         setCurrentUser(u);
-        setProfile((p) => ({ ...p, firstName: u.fullName.split(" ")[0] || "", lastName: u.fullName.split(" ").slice(1).join(" ") || "", email: u.email || "", role: u.role || "Pharmacist" }));
+        setProfile((p) => ({ ...p, firstName: u.fullName.split(" ")[0] || "", lastName: u.fullName.split(" ").slice(1).join(" ") || "", email: u.email || "", role: u.role || "Clinician" }));
       }
     });
     const saved = loadPrefs();
@@ -124,7 +124,7 @@ export default function SettingsPage() {
             <F label="Phone"      icon={<Phone size={14}/>}><input value={profile.phone} onChange={(e)=>setProfile({...profile,phone:e.target.value})} className={inp}/></F>
             <F label="Role"       icon={<Shield size={14}/>}>
               <select value={profile.role} onChange={(e)=>setProfile({...profile,role:e.target.value})} className={inp}>
-                {["Pharmacist","Pharmacy Technician","Pharmacy Assistant","Manager","Admin"].map((r)=><option key={r}>{r}</option>)}
+                {["Clinician","Pharmacy Technician","Pharmacy Assistant","Manager","Admin"].map((r)=><option key={r}>{r}</option>)}
               </select>
             </F>
             <F label="License no." icon={<Shield size={14}/>}><input value={profile.licenseNo} onChange={(e)=>setProfile({...profile,licenseNo:e.target.value})} placeholder="PPB/2024/00123" className={inp}/></F>
@@ -236,9 +236,9 @@ function StaffTab({ showSaved }: { showSaved: (msg?: string) => void }) {
   const [deleteTarget, setDeleteTarget] = useState<StaffUser | null>(null);
   const [saving,       setSaving]       = useState(false);
   const [error,        setError]        = useState("");
-  const emptyForm = { username: "", password: "", fullName: "", role: "Pharmacist", email: "", phone: "", licenseNo: "" };
+  const emptyForm = { username: "", password: "", fullName: "", role: "Clinician", email: "", phone: "", licenseNo: "" };
   const [form, setForm] = useState(emptyForm);
-  const ROLES = ["Admin","Pharmacist","Pharmacy Technician","Pharmacy Assistant","Manager"];
+  const ROLES = ["Admin","Clinician","Pharmacy Technician","Pharmacy Assistant","Manager"];
 
   const fetchStaff = async () => {
     const res = await fetch("/api/staff"); const data = await res.json();

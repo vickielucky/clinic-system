@@ -210,7 +210,7 @@ export default function DispensePage() {
           {/* Dispensed by */}
           <div className="flex flex-col gap-1">
             <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Dispensed by</label>
-            <input value={dispensedBy} onChange={(e) => setDispensedBy(e.target.value)} placeholder="Pharmacist name" className={input} />
+            <input value={dispensedBy} onChange={(e) => setDispensedBy(e.target.value)} placeholder="Clinician name" className={input} />
           </div>
 
           {/* Notes */}

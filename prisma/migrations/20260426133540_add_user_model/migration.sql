@@ -32,7 +32,7 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "fullName" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'Pharmacist',
+    "role" TEXT NOT NULL DEFAULT 'Clinician',
     "email" TEXT,
     "phone" TEXT,
     "licenseNo" TEXT,
