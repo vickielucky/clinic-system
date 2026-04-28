@@ -121,7 +121,7 @@ export default function ReportsPage() {
       tr:hover td { background: #f0fdf4; }
     </style></head>
     <body>
-      <h1>Krrish P~Kay Pharmacy</h1>
+      <h1>Krrish P~Kay Clinic</h1>
       <p class="sub">Dispense Report — generated ${new Date().toLocaleDateString("en-KE", { day: "2-digit", month: "long", year: "numeric" })}</p>
       <table>
         <thead><tr>

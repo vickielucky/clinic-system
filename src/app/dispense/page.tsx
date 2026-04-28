@@ -117,7 +117,7 @@ export default function DispensePage() {
     </style></head>
     <body>
       <div class="header">
-        <h1>Krrish P~Kay Pharmacy</h1>
+        <h1>Krrish P~Kay Clinic</h1>
         <p>Dispensing Receipt</p>
       </div>
       <hr class="divider"/>

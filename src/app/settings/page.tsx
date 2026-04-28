@@ -11,7 +11,7 @@ import {
 type StaffUser = { id: number; username: string; fullName: string; role: string; email?: string; phone?: string; licenseNo?: string; isActive: boolean; createdAt: string; };
 type CurrentUser = { id: number; username: string; fullName: string; role: string; email?: string };
 
-const tabs = ["Profile", "Pharmacy", "Security", "Preferences", "Staff"] as const;
+const tabs = ["Profile", "Clinic", "Security", "Preferences", "Staff"] as const;
 type Tab = typeof tabs[number];
 
 const inp = "w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white";
@@ -28,7 +28,7 @@ export default function SettingsPage() {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
   const [profile, setProfile] = useState({ firstName: "", lastName: "", email: "", phone: "", role: "Clinician", licenseNo: "", bio: "" });
-  const [pharmacy, setPharmacy] = useState({ name: "Krrish P~Kay Pharmacy", address: "Nairobi, Kenya", phone: "+254 700 000 001", email: "info@krrishpkay.com", licenseNo: "PPB/PH/2024/456", openTime: "08:00", closeTime: "20:00" });
+  const [Clinic, setClinic] = useState({ name: "Krrish P~Kay Clinic", address: "Nairobi, Kenya", phone: "+254 700 000 001", email: "info@krrishpkay.com", licenseNo: "PPB/PH/2024/456", openTime: "08:00", closeTime: "20:00" });
   const [security, setSecurity] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
   const [secError,  setSecError]  = useState("");
   const [secLoading, setSecLoading] = useState(false);
@@ -57,7 +57,7 @@ export default function SettingsPage() {
     showSaved("Profile updated");
   };
 
-  const handlePharmacySave = () => showSaved("Pharmacy info updated");
+  const handleClinicSave = () => showSaved("Clinic info updated");
 
   const handlePasswordSave = async () => {
     setSecError("");
@@ -81,7 +81,7 @@ export default function SettingsPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-800">Settings</h1>
-        <p className="text-sm text-gray-500">Manage your profile, pharmacy info and preferences</p>
+        <p className="text-sm text-gray-500">Manage your profile, Clinic, info and preferences</p>
       </div>
 
       {saved && (
@@ -124,7 +124,7 @@ export default function SettingsPage() {
             <F label="Phone"      icon={<Phone size={14}/>}><input value={profile.phone} onChange={(e)=>setProfile({...profile,phone:e.target.value})} className={inp}/></F>
             <F label="Role"       icon={<Shield size={14}/>}>
               <select value={profile.role} onChange={(e)=>setProfile({...profile,role:e.target.value})} className={inp}>
-                {["Clinician","Pharmacy Technician","Pharmacy Assistant","Manager","Admin"].map((r)=><option key={r}>{r}</option>)}
+                {["Clinician","Clinic Technician","Clinic Assistant","Manager","Admin"].map((r)=><option key={r}>{r}</option>)}
               </select>
             </F>
             <F label="License no." icon={<Shield size={14}/>}><input value={profile.licenseNo} onChange={(e)=>setProfile({...profile,licenseNo:e.target.value})} placeholder="PPB/2024/00123" className={inp}/></F>
@@ -136,24 +136,24 @@ export default function SettingsPage() {
         </div>
       )}
 
-      {/* PHARMACY */}
-      {activeTab === "Pharmacy" && (
+      {/* CLINIC */}
+      {activeTab === "Clinic" && (
         <div className="bg-white rounded-2xl shadow p-6 space-y-5">
           <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
             <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center"><Building2 size={18} className="text-green-700"/></div>
-            <div><p className="font-semibold text-gray-800">{pharmacy.name}</p><p className="text-xs text-gray-400">Pharmacy details</p></div>
+            <div><p className="font-semibold text-gray-800">{Clinic.name}</p><p className="text-xs text-gray-400">Clinic details</p></div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="sm:col-span-2"><F label="Pharmacy name" icon={<Building2 size={14}/>}><input value={pharmacy.name} onChange={(e)=>setPharmacy({...pharmacy,name:e.target.value})} className={inp}/></F></div>
-            <div className="sm:col-span-2"><F label="Address" icon={<MapPin size={14}/>}><input value={pharmacy.address} onChange={(e)=>setPharmacy({...pharmacy,address:e.target.value})} className={inp}/></F></div>
-            <F label="Phone" icon={<Phone size={14}/>}><input value={pharmacy.phone} onChange={(e)=>setPharmacy({...pharmacy,phone:e.target.value})} className={inp}/></F>
-            <F label="Email" icon={<Mail size={14}/>}><input value={pharmacy.email} onChange={(e)=>setPharmacy({...pharmacy,email:e.target.value})} className={inp}/></F>
-            <F label="PPB License" icon={<Shield size={14}/>}><input value={pharmacy.licenseNo} onChange={(e)=>setPharmacy({...pharmacy,licenseNo:e.target.value})} className={inp}/></F>
+            <div className="sm:col-span-2"><F label="Clinic name" icon={<Building2 size={14}/>}><input value={Clinic.name} onChange={(e)=>setClinic({...Clinic,name:e.target.value})} className={inp}/></F></div>
+            <div className="sm:col-span-2"><F label="Address" icon={<MapPin size={14}/>}><input value={Clinic.address} onChange={(e)=>setClinic({...Clinic,address:e.target.value})} className={inp}/></F></div>
+            <F label="Phone" icon={<Phone size={14}/>}><input value={Clinic.phone} onChange={(e)=>setClinic({...Clinic,phone:e.target.value})} className={inp}/></F>
+            <F label="Email" icon={<Mail size={14}/>}><input value={Clinic.email} onChange={(e)=>setClinic({...Clinic,email:e.target.value})} className={inp}/></F>
+            <F label="PPB License" icon={<Shield size={14}/>}><input value={Clinic.licenseNo} onChange={(e)=>setClinic({...Clinic,licenseNo:e.target.value})} className={inp}/></F>
             <div/>
-            <F label="Opening time" icon={<Clock size={14}/>}><input type="time" value={pharmacy.openTime} onChange={(e)=>setPharmacy({...pharmacy,openTime:e.target.value})} className={inp}/></F>
-            <F label="Closing time" icon={<Clock size={14}/>}><input type="time" value={pharmacy.closeTime} onChange={(e)=>setPharmacy({...pharmacy,closeTime:e.target.value})} className={inp}/></F>
+            <F label="Opening time" icon={<Clock size={14}/>}><input type="time" value={Clinic.openTime} onChange={(e)=>setClinic({...Clinic,openTime:e.target.value})} className={inp}/></F>
+            <F label="Closing time" icon={<Clock size={14}/>}><input type="time" value={Clinic.closeTime} onChange={(e)=>setClinic({...Clinic,closeTime:e.target.value})} className={inp}/></F>
           </div>
-          <div className="flex justify-end"><Btn onClick={handlePharmacySave}>Save changes</Btn></div>
+          <div className="flex justify-end"><Btn onClick={handleClinicSave}>Save changes</Btn></div>
         </div>
       )}
 
@@ -238,7 +238,7 @@ function StaffTab({ showSaved }: { showSaved: (msg?: string) => void }) {
   const [error,        setError]        = useState("");
   const emptyForm = { username: "", password: "", fullName: "", role: "Clinician", email: "", phone: "", licenseNo: "" };
   const [form, setForm] = useState(emptyForm);
-  const ROLES = ["Admin","Clinician","Pharmacy Technician","Pharmacy Assistant","Manager"];
+  const ROLES = ["Admin","Clinician","Clinic Technician","Clinic Assistant","Manager"];
 
   const fetchStaff = async () => {
     const res = await fetch("/api/staff"); const data = await res.json();

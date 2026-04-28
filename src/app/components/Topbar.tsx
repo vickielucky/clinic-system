@@ -104,7 +104,7 @@ export default function Topbar({ onToggleSidebar }: { onToggleSidebar: () => voi
         </button>
         <div className="flex items-center gap-2">
         
-          <span className="hidden md:block font-bold text-green-700 text-base">Krrish P~Kay Pharmacy</span>
+          <span className="hidden md:block font-bold text-green-700 text-base">Krrish P~Kay Clinic</span>
         </div>
       </div>
 

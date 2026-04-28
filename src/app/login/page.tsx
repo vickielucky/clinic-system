@@ -42,7 +42,7 @@ export default function LoginPage() {
             <span className="text-white text-2xl font-bold">Rx</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Krrish P~Kay</h1>
-          <p className="text-sm text-gray-500 mt-1">Pharmacy Management System</p>
+          <p className="text-sm text-gray-500 mt-1">Clinic Management System</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-6 space-y-4">
@@ -96,7 +96,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          © {new Date().getFullYear()} Krrish P~Kay Pharmacy
+          © {new Date().getFullYear()} Krrish P~Kay Clinic
         </p>
       </div>
     </div>
